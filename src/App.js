@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Home from './components/home/Home';
 import { Route, Switch, Router } from 'react-router-dom';
@@ -11,10 +10,9 @@ function App() {
       <header className="App-header">
         <Router history={history}>
           <Switch>
-            <Home />
+            <Route exact path = "/" component={Home} />
           </Switch>
         </Router>
-
       </header>
     </div>
   );
