@@ -10,8 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { BottomButtons, StyledTypography } from './styles'
 import Item from './Item';
-import { itemSelector } from '../../actions/selectActions';
-import { deleteItem } from '../../actions/itemActions';
+// import { itemSelector } from '../../actions/selectActions';
+// import { deleteItem } from '../../actions/itemActions';
 import history from '../../history';
 
 const ListItem = () => {
@@ -20,12 +20,12 @@ const ListItem = () => {
 
   const selectItem = itemId => {
     const item = items[itemId]
-    itemSelector(item)
+    // itemSelector(item)
     history.push(`/item/${item.id}`)
   }
 
   const deleteItemClick = itemId => {
-    this.props.deleteItem(itemId)
+    // this.props.deleteItem(itemId)
   }
 
   const renderList = Object.keys(items).map(item => (

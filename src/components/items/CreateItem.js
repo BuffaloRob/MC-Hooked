@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import Typography from "@material-ui/core/Typography";
 
 import ItemForm from './ItemForm';
-import { createItem } from '../../actions/itemActions';
+// import { createItem } from '../../actions/itemActions';
 import { StyledGridContainer } from "./styles";
 
 class CreateItem extends React.Component {
 
   onSubmit = formValues => {
-    this.props.createItem(formValues);
+    // this.props.createItem(formValues);
   }
 
   render() {
