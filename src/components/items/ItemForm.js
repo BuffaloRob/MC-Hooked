@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from 'react-router-dom';
-import { Field, reduxForm } from 'redux-form'
+import { Field, Form } from 'redux-form'
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -34,46 +34,49 @@ class ItemForm extends React.Component {
 
   render() {
     return (
-      <Grid container justify='center'>
-        <form onSubmit={this.props.handleSubmit(this.onSubmit)} className='ui form error'>
-          <Field
-            name='name'
-            component={this.renderInput}
-            label='Enter Item Name '
-          /><br/>
-          <br/>
-          <Grid container justify='center'> 
-            <Button 
-              color='primary' 
-              variant='outlined' 
-              type='submit'
-            >
-              Submit
-            </Button>
+      <Form>
+        {() => (
+          <Grid container justify='center'>
+            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className='ui form error'>
+              <Field
+                name='name'
+                component={this.renderInput}
+                label='Enter Item Name '
+              /><br/>
+              <br/>
+              <Grid container justify='center'> 
+                <Button 
+                  color='primary' 
+                  variant='outlined' 
+                  type='submit'
+                >
+                  Submit
+                </Button>
+              </Grid>
+              <br/>
+              <FabContainer container justify='center'>
+                <Fab
+                  color="secondary"
+                  aria-label="Back to Items"
+                  size="small"
+                  to={`/items`}
+                  component={RouterLink}
+                >
+                  <Tooltip title="Back to Items">
+                    <ArrowBack />
+                  </Tooltip>
+                </Fab>
+              </FabContainer>
+            </form>
           </Grid>
-          <br/>
-          <FabContainer container justify='center'>
-            <Fab
-              color="secondary"
-              aria-label="Back to Items"
-              size="small"
-              to={`/items`}
-              component={RouterLink}
-            >
-              <Tooltip title="Back to Items">
-                <ArrowBack />
-              </Tooltip>
-            </Fab>
-          </FabContainer>
-        </form>
-      </Grid>
+        )}
+      </Form>
     )
   }
 }
 
 // const validate = formValues => {
 //   const errors = {};
-
 //   if (!formValues.name) {
 //     errors.name = "You Must Enter an Item Name"
 //   }
