@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from 'react-router-dom';
-import { Field, Form } from 'redux-form'
+import { Field, Form } from 'react-final-form'
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -10,9 +10,9 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import ArrowBack from '@material-ui/icons/ArrowBack';
 import { FabContainer } from './styles';
 
-class ItemForm extends React.Component {
+function ItemForm(props) {
 
-  renderInput = ({ input, label, meta: {touched, error} }) => (
+  const renderInput = ({ input, label, meta: {touched, error} }) => (
     <>
       <TextField
         label={label}
@@ -28,75 +28,61 @@ class ItemForm extends React.Component {
     </>
   )
 
-  onSubmit = formValues => {
-    this.props.onSubmit(formValues);
-  }
-
-  render() {
-    return (
-      <Form>
-        {() => (
-          <Grid container justify='center'>
-            <form onSubmit={this.props.handleSubmit(this.onSubmit)} className='ui form error'>
-              <Field
-                name='name'
-                component={this.renderInput}
-                label='Enter Item Name '
-              /><br/>
-              <br/>
-              <Grid container justify='center'> 
-                <Button 
-                  color='primary' 
-                  variant='outlined' 
-                  type='submit'
-                >
-                  Submit
-                </Button>
-              </Grid>
-              <br/>
-              <FabContainer container justify='center'>
-                <Fab
-                  color="secondary"
-                  aria-label="Back to Items"
-                  size="small"
-                  to={`/items`}
-                  component={RouterLink}
-                >
-                  <Tooltip title="Back to Items">
-                    <ArrowBack />
-                  </Tooltip>
-                </Fab>
-              </FabContainer>
-            </form>
-          </Grid>
-        )}
-      </Form>
-    )
-  }
+  return (
+    <Form
+      onSubmit = {values => {
+        props.onSubmit(values)
+      }}
+      validate = {values => {
+        const errors = {};
+        const requiredFields = [
+          'name',
+        ]
+        requiredFields.forEach(field => {
+          if (!values[field]) {
+            errors[field] = 'Required'
+          }
+        })
+        return errors
+      }}
+    >
+      {({ handleSubmit }) => (
+        <Grid container justify='center'>
+          <form onSubmit={handleSubmit} className='ui form error'>
+            <Field
+              name='name'
+              component={renderInput}
+              label='Enter Item Name '
+            /><br/>
+            <br/>
+            <Grid container justify='center'> 
+              <Button 
+                color='primary' 
+                variant='outlined' 
+                type='submit'
+              >
+                Submit
+              </Button>
+            </Grid>
+            <br/>
+            <FabContainer container justify='center'>
+              <Fab
+                color="secondary"
+                aria-label="Back to Items"
+                size="small"
+                to={`/items`}
+                component={RouterLink}
+              >
+                <Tooltip title="Back to Items">
+                  <ArrowBack />
+                </Tooltip>
+              </Fab>
+            </FabContainer>
+          </form>
+        </Grid>
+      )}
+    </Form>
+  )
 }
 
-// const validate = formValues => {
-//   const errors = {};
-//   if (!formValues.name) {
-//     errors.name = "You Must Enter an Item Name"
-//   }
-//   return errors;
-// }
-
-const validate = values => {
-  const errors = {};
-  const requiredFields = [
-    'name',
-  ]
-  requiredFields.forEach(field => {
-    if (!values[field]) {
-      errors[field] = 'Required'
-    }
-  })
-  return errors
-}
-
-export default reduxForm({
-  form: 'itemForm',
-  validate: validate
-})(ItemForm);
+export default ItemForm;
