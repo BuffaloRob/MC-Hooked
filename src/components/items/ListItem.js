@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link as RouterLink } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 import List from "@material-ui/core/List";
